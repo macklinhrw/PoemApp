@@ -1,0 +1,4 @@
+fragment fPoem on PoemClass {
+  title
+  content
+}

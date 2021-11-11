@@ -1,0 +1,18 @@
+mutation createPoem(
+  $createPoemIsDraft: Boolean!
+  $createPoemContent: String!
+  $createPoemTitle: String!
+  $createPoemHasTitle: Boolean!
+) {
+  createPoem(
+    isDraft: $createPoemIsDraft
+    content: $createPoemContent
+    title: $createPoemTitle
+    hasTitle: $createPoemHasTitle
+  ) {
+    title
+    content
+    isDraft
+    hasTitle
+  }
+}

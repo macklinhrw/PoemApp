@@ -1,21 +1,42 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NativeBaseProvider } from "native-base";
+import React from "react";
+import { StyleSheet, AppRegistry } from "react-native";
+import { Home } from "./src/screens/Home";
+import { NewPoem } from "./src/screens/NewPoem";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
-export default function App() {
+const Stack = createNativeStackNavigator();
+// const Tab = createBottomTabNavigator();
+
+// Initialize Apollo Client
+const client = new ApolloClient({
+  uri: "http://10.0.0.36:4000/",
+  cache: new InMemoryCache(),
+});
+
+function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ApolloProvider client={client}>
+      <NativeBaseProvider>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="Home"
+              component={Home}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen name="New Poem" component={NewPoem} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </NativeBaseProvider>
+    </ApolloProvider>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  animButton: {},
 });
+
+export default App;
